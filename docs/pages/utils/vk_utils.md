@@ -4,7 +4,7 @@ General or miscellaneous utilites related to Vulkan operations.
 
 ## Errors
 
-### VulkanFormatError
+### `VulkanFormatError`
 
 #### Values
 

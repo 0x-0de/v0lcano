@@ -74,6 +74,8 @@ Contains the boundaries of a subtexture within the atlas.
 
 `scl_y: f32` - Height of the subtexture.
 
+### Public Functions
+
 **`add_texture(self: *TextureAtlas2D, texture: *Texture2D) !TextureSuballocation`**
 
 Adds a texture to this atlas, returning its suballocation.

@@ -36,7 +36,7 @@ Frees all `fonts` and other allocated resources.
 
 ## Errors
 
-### FontSearchError
+### `FontSearchError`
 
 #### Values
 

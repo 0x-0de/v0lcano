@@ -222,6 +222,18 @@ Maps memory to the staging buffer, transfers said memory to the image, and then 
 
 Maps memory to the staging buffer, transfers said memory to the image, and then transitions the image's layout to be used as a source in a copy operation.
 
+## Errors
+
+### `VulkanMemoryError`
+
+#### Values
+
+**NoSuitableMemoryType** - Your hardware does not support the requested memory type.
+
+**InvalidMemoryType** - Returned by **`map_data_to_buffer_subsection`** if the memory type isn't CPU-visible and CPU-coherent.
+
+**OutOfRange** - Returned by **`map_data_to_buffer_subsection`** if trying to map data to an offset that exceeds the range of the buffer.
+
 ## Public Functions
 
 **`find_physical_device_memory_type(interface: *VkInterface, type_filter: u32, requested_properties: vk.MemoryPropertyFlags) VulkanMemoryError!u32`**
