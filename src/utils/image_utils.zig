@@ -298,6 +298,7 @@ pub const Texture2D = struct
 
 pub const TextureAtlasError = error
 {
+    OutOfRange,
     OutOfSpace
 };
 
@@ -460,5 +461,25 @@ pub const TextureAtlas2D = struct
             .sampler = sampler,
             .map_texels_used = texels_used
         };
+    }
+
+    pub fn remove_texture(self: *VkInterface, suballocation: TextureSuballocation) !void
+    {
+        const f_width = @as(f32, @floatFromInt(self.width));
+        const f_height = @as(f32, @floatFromInt(self.height));
+
+        const pix_x: u32 = @intFromFloat(suballocation.pos_x * f_width);
+        const pix_y: u32 = @intFromFloat(suballocation.pos_y * f_height);
+
+        const pix_w: u32 = @intFromFloat(suballocation.scl_x * f_width);
+        const pix_h: u32 = @intFromFloat(suballocation.scl_y * f_height);
+        
+        if(pix_x + pix_w > self.width or pix_y + pix_h > self.height) return TextureAtlasError.OutOfRange;
+
+        for(pix_x..pix_x + pix_w) |i| {
+        for(pix_y..pix_y + pix_h) |j|
+        {
+            self.texels_used[i][j] = false;
+        }}
     }
 };

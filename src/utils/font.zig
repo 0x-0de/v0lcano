@@ -178,6 +178,52 @@ pub const Font = struct
         return ch;
     }
 
+    /// Removes a character from the font's character list and texture atlas.
+    pub fn remove_character(self: *Font, unicode: u32, size: f32) !void
+    {
+        for(self.characters.items, 0..) |c, i|
+        {
+            if(c.unicode == unicode and c.size == size)
+            {
+                var suballoc = c.suballocation;
+
+                suballoc.scl_x += 1.0 / @as(f32, @floatFromInt(self.atlas.?.width));
+                suballoc.scl_y += 1.0 / @as(f32, @floatFromInt(self.atlas.?.height));
+
+                suballoc.pos_y -= 1.0 / @as(f32, @floatFromInt(self.atlas.?.height));
+
+                try self.atlas.?.remove_texture(suballoc);
+                _ = self.characters.orderedRemove(i);
+            }
+        }
+    }
+
+    /// Removes all characters of a specific font size.
+    pub fn remove_all_size_characters(self: *Font, size: f32) !void
+    {
+        var should_loop = true;
+        while(should_loop)
+        {
+            should_loop = false;
+            for(self.characters.items, 0..) |c, i|
+            {
+                if(c.size == size)
+                {
+                    should_loop = true;
+                    var suballoc = c.suballocation;
+
+                    suballoc.scl_x += 1.0 / @as(f32, @floatFromInt(self.atlas.?.width));
+                    suballoc.scl_y += 1.0 / @as(f32, @floatFromInt(self.atlas.?.height));
+
+                    suballoc.pos_y -= 1.0 / @as(f32, @floatFromInt(self.atlas.?.height));
+
+                    try self.atlas.?.remove_texture(suballoc);
+                    _ = self.characters.orderedRemove(i);
+                }
+            }
+        }
+    }
+
     /// Updates the `typesize`. This change only applies to new requested characters, currently held ones will maintain their current sizes.
     /// You can request the same character(s) in multiple sizes.
     pub fn set_font_size(self: *Font, size: c_uint) void

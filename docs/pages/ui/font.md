@@ -52,6 +52,14 @@ Initializes the font class. If `atlas` is null, it will need to be set before `r
 
 Requests a unicode character to be added to the font. If the character is already available, then the associated `FontCharacter` is returned. Otherwise, a new one is allocated from the `atlas` and added to `characters` before being returned.
 
+**`remove_all_size_characters(self: *Font, size: f32) !void`**
+
+Removes all characters of a specific font size.
+
+**`remove_character(self: *Font, unicode: u32, size: f32) !void`**
+
+Removes a character from the font's character list and texture atlas.
+
 **`set_font_size(self: *Font, size: c_uint) void`**
 
 Updates the `typesize`. This change only applies to new requested characters, currently held ones will maintain their current sizes. You can request the same character(s) in multiple sizes.
