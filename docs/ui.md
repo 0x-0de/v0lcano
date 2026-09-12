@@ -32,7 +32,7 @@ While the way elements render is ultimately up to the shader provider, elements 
 
 Elements also have **placements**, which determine their positions and sizes on the screen. Placements have *relative* and *absolute* values. *Relative* values specify where the element should be relative to its parent element, while *absolute* values shift the element's position and size on a per-pixel basis. Placements also have alignment values, which are used for positioning. You can think of alignments as determining which *part* of the element is placed at the location specified with those position values. Here is a simple diagram demonstrating this:
 
-[TODO: diagram]()
+![Diagram showing how different alignments affect placements with the same position values](./resources/ui/alignments.png)
 
 Alignments do not affect element scale.
 
@@ -76,11 +76,13 @@ Since the theme requires a certain vertex layout, certain shaders, and certain d
 
 ### Loading a UI scene with XML
 
-The basic theme also contains functionality to load in those UI templates from XML.
+The basic theme also contains functionality to load in those UI templates from XML. The **`load_xml_ui`** file reads an .xml file and adds all elements specified to some parent element (which can be the container's `origin` element). The `xml_to_ui` test contains an example that uses this in action.
 
-[todo]().
+The XML loader supports all `theme_basic` element templates, as well as all layouts. Certain attributes, however, need to be specified on the Ashbloom side, such as fonts and callbacks for elements. This is the purpose of the `assets` argument in **`load_xml_ui`**. The argument should contain lists of string-key-value pairs assigning said strings to certain pointers to fonts or callback functions.
 
 ## Modules
 
 1. [core](./pages/ui/core.md)
 2. [theme_basic](./pages/ui/theme_basic.md)
+3. [layouts](./pages/ui/layouts.md)
+4. [font](./pages/ui/font.md)
